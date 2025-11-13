@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>회피형 애착 자기진단</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f7;
+      color: #222;
+    }
+    .container {
+      max-width: 780px;
+      margin: 24px auto;
+      padding: 24px 20px 32px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+      text-align: center;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .description {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      background: #f7f7fb;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+    }
+    .description strong {
+      color: #333;
+    }
+    .scale-info {
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+      color: #555;
+    }
+    .scale-info span {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .question {
+      margin-bottom: 18px;
+      padding: 12px 12px 10px;
+      border-radius: 10px;
+      border: 1px solid #eee;
+      background: #fafafa;
+    }
+    .question-title {
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 14px;
+      font-size: 0.86rem;
+      align-items: center;
+    }
+    .options label {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .options input[type="radio"] {
+      accent-color: #4f46e5;
+      cursor: pointer;
+    }
+
+    .btn-area {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    #submitBtn {
+      background: #4f46e5;
+      color: white;
+    }
+    #resetBtn {
+      background: #e5e7eb;
+      color: #374151;
+    }
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .result {
+      margin-top: 26px;
+      padding: 16px 14px;
+      border-radius: 12px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      display: none;
+    }
+    .result-title {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .result-score {
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: #4b5563;
+    }
+    .result-detail {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #374151;
+      white-space: pre-line;
+    }
+
+    .footer {
+      margin-top: 18px;
+      font-size: 0.75rem;
+      color: #9ca3af;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 12px;
+        padding: 18px 14px 22px;
+      }
+      h1 {
+        font-size: 1.25rem;
+      }
+      .question {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>회피형 애착 자기진단</h1>
+    <div class="subtitle">수업 시연용 간단 설문지</div>
+
+    <div class="description">
+      이 설문은 <strong>자신의 관계 스타일, 특히 회피형 애착 경향</strong>을 간단히 확인해 보는 도구입니다.<br />
+      정확한 진단이 아닌 <strong>자기 이해를 돕기 위한 참고용</strong>입니다.
+    </div>
+
+    <div class="scale-info">
+      <span><strong>응답 기준 (1~5점)</strong></span><br />
+      <span>1 = 전혀 그렇지 않다</span>
+      <span>2 = 그렇지 않은 편이다</span>
+      <span>3 = 보통이다</span>
+      <span>4 = 그런 편이다</span>
+      <span>5 = 매우 그렇다</span>
+    </div>
+
+    <form id="quizForm">
+      <!-- 질문들 -->
+      <div class="question">
+        <div class="question-title">1. 가까운 사람이 나에게 감정적으로 기대려고 하면 부담스럽다.</div>
+        <div class="options" data-q="q1">
+          <label><input type="radio" name="q1" value="1" />1</label>
+          <label><input type="radio" name="q1" value="2" />2</label>
+          <label><input type="radio" name="q1" value="3" />3</label>
+          <label><input type="radio" name="q1" value="4" />4</label>
+          <label><input type="radio" name="q1" value="5" />5</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-title">2. 연인이 너무 가까이 다가오면 거리감을 두고 싶어진다.</div>
+        <div class="options" data-q="q2">
+          <label><input type="radio" name="q2" value="1" />1</label>
+          <label><input type="radio" name="q2" value="2" />2</label>
+          <label><input type="radio" name="q2" value="3" />3</label>
+          <label><input type="radio" name="q2" value="4" />4</label>
+          <label><input type="radio" name="q2" value="5" />5</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-title">3. 감정을 솔직하게 표현하는 것이 불편하다.</div>
+        <div class="options" data-q="q3">
+          <label><input type="radio" name="q3" value="1" />1</label>
+          <label><input type="radio" name="q3" value="2" />2</label>
+          <label><input type="radio" name="q3" value="3" />3</label>
+          <label><input type="radio" name="q3" value="4" />4</label>
+          <label><input type="radio" name="q3" value="5" />5</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-title">4. 누군가가 나의 약점을 알게 되는 것이 싫다.</div>
+        <div class="options" data-q="q4">
+          <label><input type="radio" name="q4" value="1" />1</label>
+          <label><input type="radio" name="q4" value="2" />2</label>
+          <label><input type="radio" name="q4" value="3" />3</label>
+          <label><input type="radio" name="q4" value="4" />4</label>
+          <label><input type="radio" name="q4" value="5" />5</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-title">5. 혼자 있는 시간이 편하고, 관계는 종종 피곤하다.</div>
+        <div class="options" data-q="q5">
+          <label><input type="radio" name="q5" value="1" />1</label>
+          <label><input type="radio" name="q5" value="2" />2</label>
+          <label><input type="radio" name="q5" value="3" />3</label>
+          <label><input type="radio" name="q5" value="4" />4</label>
+          <label><input type="radio" name="q5" value="5" />5</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-title">6. 내가 아무 말 하지 않아도 상대가 알아주길 바란다.</div>
+        <div class="options" data-q="q6">
+          <label><input type="radio" name="q6" value="1" />1</label>
+          <label><input type="radio" name="q6" value="2" />2</label>
+          <label><input type="radio" name="q6" value="3" />3</label>
+          <label><input type="radio" name="q6" value="4" />4</label>
+          <label><input type="radio" name="q6" value="5" />5</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-title">7. 누군가와 갈등이 생기면 대화로 풀기보다 회피하고 싶다.</div>
+        <div class="options" data-q="q7">
+          <label><input type="radio" name="q7" value="1" />1</label>
+          <label><input type="radio" name="q7" value="2" />2</label>
+          <label><input type="radio" name="q7" value="3" />3</label>
+          <label><input type="radio" name="q7" value="4" />4</label>
+          <label><input type="radio" name="q7" value="5" />5</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-title">8. 상대의 사랑을 느껴도, 왠지 믿기 어렵다고 느낄 때가 있다.</div>
+        <div class="options" data-q="q8">
+          <label><input type="radio" name="q8" value="1" />1</label>
+          <label><input type="radio" name="q8" value="2" />2</label>
+          <label><input type="radio" name="q8" value="3" />3</label>
+          <label><input type="radio" name="q8" value="4" />4</label>
+          <label><input type="radio" name="q8" value="5" />5</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-title">9. 상대가 나를 필요로 하면 갑자기 답답해진다.</div>
+        <div class="options" data-q="q9">
+          <label><input type="radio" name="q9" value="1" />1</label>
+          <label><input type="radio" name="q9" value="2" />2</label>
+          <label><input type="radio" name="q9" value="3" />3</label>
+          <label><input type="radio" name="q9" value="4" />4</label>
+          <label><input type="radio" name="q9" value="5" />5</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-title">10. 관계가 깊어지는 순간 스스로 거리를 두게 된다.</div>
+        <div class="options" data-q="q10">
+          <label><input type="radio" name="q10" value="1" />1</label>
+          <label><input type="radio" name="q10" value="2" />2</label>
+          <label><input type="radio" name="q10" value="3" />3</label>
+          <label><input type="radio" name="q10" value="4" />4</label>
+          <label><input type="radio" name="q10" value="5" />5</label>
+        </div>
+      </div>
+
+      <div class="btn-area">
+        <button type="button" id="submitBtn">결과 보기</button>
+        <button type="button" id="resetBtn">초기화</button>
+      </div>
+    </form>
+
+    <div id="resultBox" class="result">
+      <div class="result-title" id="resultTitle"></div>
+      <div class="result-score" id="resultScore"></div>
+      <div class="result-detail" id="resultDetail"></div>
+    </div>
+
+    <div class="footer">
+      * 실제 임상 진단을 대체하지 않으며, 수업 및 자기이해를 위한 참고용 도구입니다.
+    </div>
+  </div>
+
+  <script>
+    const submitBtn = document.getElementById("submitBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const resultBox = document.getElementById("resultBox");
+    const resultTitle = document.getElementById("resultTitle");
+    const resultScore = document.getElementById("resultScore");
+    const resultDetail = document.getElementById("resultDetail");
+
+    submitBtn.addEventListener("click", function () {
+      const form = document.getElementById("quizForm");
+      const formData = new FormData(form);
+      let total = 0;
+      let answeredCount = 0;
+      const questions = 10;
+
+      for (let i = 1; i <= questions; i++) {
+        const value = formData.get("q" + i);
+        if (!value) {
+          alert(i + "번 문항에 응답해 주세요.");
+          return;
+        }
+        answeredCount++;
+        total += Number(value);
+      }
+
+      if (answeredCount !== questions) {
+        alert("모든 문항에 응답해 주세요.");
+        return;
+      }
+
+      let levelTitle = "";
+      let detail = "";
+
+      if (total <= 23) {
+        levelTitle = "비회피형(안정형)에 가까운 편입니다.";
+        detail =
+          "대체로 가까운 관계에서도 편안함을 느끼는 경향이 있습니다.\n" +
+          "감정 표현이나 친밀감이 크게 부담스럽지 않고, 타인과의 정서적 교류를 비교적 안정적으로 경험하는 편일 수 있습니다.";
+      } else if (total <= 36) {
+        levelTitle = "약한 회피 경향이 있습니다.";
+        detail =
+          "기본적으로 관계를 중요하게 여기지만, 가까워지는 과정에서 때때로 불편함을 느낄 수 있습니다.\n" +
+          "상대에게 기대는 것이 어색하거나, 갈등 상황에서 솔직한 표현보다는 잠시 거리를 두려는 경향이 있을 수 있습니다.";
+      } else {
+        levelTitle = "회피형 애착 성향이 비교적 뚜렷합니다.";
+        detail =
+          "정서적으로 너무 가까워지는 것이 부담스럽고, 상대에게 의지하거나 나를 드러내는 것이 어렵게 느껴질 수 있습니다.\n" +
+          "갈등이나 친밀한 순간에 스스로 거리를 두며, 혼자일 때 더 안전하다고 느끼는 경향이 있을 수 있습니다.\n\n" +
+          "이 결과가 '나쁜 성격'을 의미하는 것은 아니며, 지금까지의 경험 속에서 형성된 하나의 전략일 수 있습니다.\n" +
+          "스스로의 패턴을 인식하는 것만으로도 관계를 다루는 방식이 조금씩 달라질 수 있습니다.";
+      }
+
+      resultTitle.textContent = levelTitle;
+      resultScore.textContent = "총점: " + total + "점 (최소 10점 ~ 최대 50점)";
+      resultDetail.textContent = detail;
+      resultBox.style.display = "block";
+      resultBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    resetBtn.addEventListener("click", function () {
+      const form = document.getElementById("quizForm");
+      form.reset();
+      resultBox.style.display = "none";
+    });
+  </script>
+</body>
+</html>
